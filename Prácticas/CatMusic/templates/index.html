@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block index %}
+{% block head %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="imagenes/png" href={% static 'img/cm.png' %}>
+    <title>Cat Music</title>
+    {% block css %}
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href={% static 'css/style.css' %}> 
+    <link rel="stylesheet" href={% static 'css/player.css' %}> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% endblock css %}
+{% endblock head %}
+    
+{% block body_content %}
+   		 
+				<h2 > Escucha la música que más te gusta</h2>
+				
+				
+				<div style="margin-top: 8%; margin-left: 11%;" class="row">
+ 
+                    <div class="col-md-4">
+	                <ul id="playlist"  >
+                        <li class="active">
+                            <a href="{% static 'music/01 come together.mp3' %}">
+                            beatles - come together
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% static 'music/02 drive my car.mp3' %}">
+                            beatles - drive my car
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% static 'music/03 help!.mp3' %}">
+                            beatles - help!
+                            </a>
+                        </li>    
+                    </ul>
+                </div>
+   
+{% endblock body_content %}
+{% block js %}
+{% endblock js %}
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+	<script src="{% static 'js/jquery-ui.js' %} "></script>
+	<script src="{% static 'js/servicios.js' %}" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="{% static 'js/song.js' %}" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="{% static 'js/player.js' %}" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="{% static 'js/music.js' %}" type="text/javascript" charset="utf-8" async defer></script>
+{% endblock %}

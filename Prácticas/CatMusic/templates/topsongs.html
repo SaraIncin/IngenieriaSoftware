@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block topsongs %}
+<header>
+    <title>Canciones más populares</title>
+</header>
+   <h1>Estas son las canciones populares:</h1>
+    
+    {%if songs %}
+        {% for song in songs  %}
+        <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+            <tr>
+                <th>id</th>
+                <th> Aristas</th>
+                <th>Nombre</th>
+                <th>Canción</th>
+                </tr>
+            <tr>
+            <td>{{song.id}}</td>
+            {% for artist in song.artists.all%}
+                <td>{{artist.name}}</td>
+        	{% endfor %}
+		    <td>{{song.name}}</td>
+		    <td><a href="{{song.song_file}}">{{song.song_file}}</a>
+            </td>
+		    
+        </tr>
+				</table>			
+        {% endfor %}
+    {% else %}
+		<h2>No hay registros</h2>
+	{% endif %}
+{% endblock %}

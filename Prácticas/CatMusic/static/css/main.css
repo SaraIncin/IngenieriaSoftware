@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/* Tipograf├¡a */
+@import "http://fonts.googleapis.com/css?family=Montserrat";
+/* Adaptativas */
+body {
+  overflow-x: hidden; }
+
+ 
+.oculto {
+  display: none; }
+
+#primero {
+  text-align: center;
+  height: 50px; }
+
+
+
+nav span {
+  color: #fff; }
+
+.fa {
+  color: #fff; }
+
+  ul li a {
+    color: white;
+  }
+
+  ul {
+    color: wheat; 
+    font-size: larger; 
+    font-style: oblique; 
+    font-family: initial;
+  }
+ 
+
+section[role="servicios"] {
+  font-family: 'Montserrat', sans-serif; }
+  section[role="servicios"] #contenedor {
+    position:fixed;
+    width: 100%;
+    height: 550px;
+    margin-left: auto;
+    margin-right: auto;
+     transition: all .5s ease; }
+  section[role="servicios"] .menu_lateral {
+    display: inline-block;
+    height: 125%;
+    width: 25%; }
+     section[role="servicios"] .menu_lateral2 {
+    display: inline-block;
+    height: 100%;
+    width: 15%; }
+  section[role="servicios"] .menu_servicio {
+    display: block;
+    height: 16.66%;
+    width: 100%;
+    background-color: black;
+    cursor: pointer; }
+    section[role="servicios"] .menu_servicio h3 {
+      text-align: center;
+      margin: 0;
+      font-size: 13px;
+      color: white;
+      padding-top: 11%; }
+  section[role="servicios"] .menu_servicio:hover {
+    background-color: #00CCFF; }
+    section[role="servicios"] .menu_servicio:hover h3 {
+      color: black; }
+  section[role="servicios"] .area_trabajo {
+   display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/fondo.jpg);
+background-position: center;
+  background-size: cover;
+  height: 100vh;
+    background-repeat: no-repeat; 
+    transition: all 5s;}
+    section[role="servicios"] .area_trabajo h2 {
+      text-align: left;
+      font-size: 30px;
+      color: white;
+      margin-left: 40%; 
+      margin-top: 2%; }
+      
+    section[role="servicios"] .area_trabajo header {
+      font-size: 30px;
+  color: white;
+  line-height: 10px;
+  text-align: left;
+  background: black;
+  user-select: none;  }
+  
+  section[role="servicios"] .image {
+    display: inline-block;
+    vertical-align: top;
+    width: 105%;
+    background-size: 60% 80%;
+    background-image: url(../img/inicio1.png);
+    background-position: center;
+    height: 35vh;
+ 
+    background-repeat: no-repeat;  }
+      
+  section[role="servicios"] .oculto {
+    display: none; }
+    
+  section[role="servicios"] .menu_lateral header{
+      font-size: 30px;
+  color: white;
+  line-height: 50px;
+  text-align: center;
+  background: black;
+  user-select: none;}

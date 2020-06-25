@@ -1,0 +1,30 @@
+{% load static %}
+{{to_play}}
+
+
+    <section id="reproductor">  
+		<div class="infoMusic">
+			<img id="art" src="">
+			<div class="trackInfo">
+		        <p id="title"></p>
+		        <p id="artist"></p>
+			</div>
+	    </div>
+	    <div class="container">
+			<div class="botones">
+				<button class="nav" id="prev">
+					<img src="{% static 'img/prev.png' %}">
+				</button>
+				<button class="nav" id="play">
+					<img src="{% static 'img/play.png' %}">
+				</button>
+				<button class="nav" id="next">
+					<img src="{% static 'img/next.png' %}">
+				</button>
+			</div>
+			<div class="linea">
+				<div class="progreso"></div>
+				<div class="manejador"></div>
+			</div>
+	    </div>
+	</section>
