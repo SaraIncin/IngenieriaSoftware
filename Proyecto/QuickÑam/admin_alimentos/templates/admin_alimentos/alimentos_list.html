@@ -1,0 +1,112 @@
+{% extends 'admin_repartidor/base.html' %}
+{%load static%}
+{% block body_content %}
+{%if user.is_authenticated%}
+<!-- Accordion wrapper -->
+<h1>Lista de Alimentos </h1>
+ <div style="text-align:right; width:1270px">
+<a class="btn btn-outline-info" href="{% url 'admin_alimentos:registrar_alimento' %}"> 
+<i class="fa fa-plus"></i> Agregar</a>
+</div>
+<br>
+<div class="container">
+{%if categorias %}
+{%for categoria in categorias%}
+<!-- Accordion card -->
+<div class="accordion" id="accordionExample">
+  <div class="card">
+  	<!-- Card header -->
+    <div class="card-header" id="{{categoria.id}}">
+      <h2 class="mb-0">
+        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#{{categoria.nombre}}">
+        	<i class="fas fa-angle-down"></i>
+          {{categoria.nombre}} 
+        </button>
+      </h2>
+
+    </div>
+    <div id="{{categoria.nombre}}" class="collapse" aria-labelledby="{{categoria.id}}" data-parent="#accordionExample">
+    	<!-- Card body -->
+    	<div class="card-body">
+    		<div class="container">
+  				<div class="row">
+    				{%for alimento in alimentos%}
+    					{%if alimento.categoria.nombre == categoria.nombre%}
+    						<!-- Card -->
+    						<div class="col-md-3 col-sm-6">
+
+      						<!--Card image-->
+      							<div class="card text-center">
+      								<div class="card-block">
+        								<img class="card-img-top" src="/media/{{alimento.foto}}">
+
+        								<!--Title-->
+        								<h4 class="card-title">{{alimento.nombre}}  ${{alimento.precio}}</h4>
+        								<!--Text-->
+        								<p class="card-text">{{alimento.descripcion}}.</p>
+        								<p class="card-text"><small class="text-muted">{{alimento.categoria.nombre}}</small></p>
+        
+        								<a style="margin-bottom: 10px" class="btn btn-outline-primary" href="{% url 'admin_alimentos:editar_alimento' alimento.id %}">
+        					 				<i class="far fa-edit"></i> editar</a>
+
+                          <form id="{{alimento.id}}" action= "{% url 'admin_alimentos:eliminar_alimento' alimento.id %}" method="post">
+                            {% csrf_token %}
+                            <button style="margin-bottom: 10px" type="button"  
+                            onclick="abrir_modal('{{alimento.nombre}}', '{{alimento.id}}');" class="btn btn-outline-danger"> 
+                              <i class="fas fa-trash"></i> eliminar </button>
+                          </form>
+
+
+
+
+
+      								</div>
+
+    							</div>
+    							<br>
+    
+  							</div>
+     					{%endif%}
+    				{%endfor%}
+    			</div>
+			</div>
+		</div>
+	</div>
+  </div>
+ </div> 
+{%endfor%}
+<!-- Accordion wrapper -->	
+{% else %}
+	<h2>No hay registros</h2>
+{% endif %}
+
+
+</div>
+{% endif%}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar alimento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que deseas eliminar <label id="aNombre"></label>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="elimina" type="button" class="btn btn-primary" onclick="elimina()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body_content %}
+
+{% block js %}
+        <script type="text/javascript" src="{% static 'js/alimento.js' %}"></script>
+{% endblock js %}

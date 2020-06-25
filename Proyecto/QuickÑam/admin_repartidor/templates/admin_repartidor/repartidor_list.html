@@ -1,0 +1,82 @@
+{% extends 'admin_repartidor/base.html' %}
+{% load static%}
+
+{% block body_content %}
+{%if user.is_authenticated%}
+<h1>Lista Repartidores </h1>
+	<div style="text-align:right; width:1270px">
+<a class="btn btn-outline-info" href="{% url 'admin_repartidor:registrar_repartidor' %}"> 
+<i class="fa fa-plus"></i> Agregar</a>
+
+	</div>
+<br>
+
+	<table class="table table-hover table-bordered" style="text-align: center;">
+
+		<thead>
+			<tr> 
+				<td>Nombre</td>
+				<td>Apellido</td>
+				<td>Correo</td>
+				<td colspan="2">Acciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			{%if repartidores %}
+				{%for repartidor in repartidores%}
+					<tr>
+						{% if repartidor.repartidor.tipo == 1%}
+							<td>{{repartidor.first_name}}</td>
+							<td>{{repartidor.last_name}}</td>
+							<td>{{repartidor.email}}</td>
+							<td>
+								<a class="btn btn-primary" href="{% url 'admin_repartidor:editar_repartidor' repartidor.id %}"> <i class="far fa-edit"></i> editar</a>
+							</td>
+							<td>
+								<form id="{{repartidor.id}}" action= "{% url 'admin_repartidor:eliminar_repartidor' repartidor.id %}" method="post">
+                            {% csrf_token %}
+                            <button style="margin-bottom: 10px" type="button" name="btn" value="Eliminar" id="submitBtn"  
+                            onclick="abrir_modal('{{repartidor.first_name}}','{{repartidor.last_name}}','{{repartidor.id}}')" class="btn btn-danger"> 
+                              <i class="fas fa-trash"></i> eliminar </button>
+                          </form>
+							</td>	
+						{% endif %}
+					</tr>
+				{%endfor%}
+
+			{% else %}
+				<h2>No hay registros</h2>
+			{% endif %}
+		</tbody>
+		
+	</table>
+	{% endif %}
+
+	<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar repartidor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que deseas eliminar  <label id="aNombre"></label> <label id="apellido"></label>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="elimina" type="button" class="btn btn-primary" onclick="elimina()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	
+{% endblock body_content %}
+
+{% block js %}
+        <script type="text/javascript" src="{% static 'js/repartidor.js' %}"></script>
+{% endblock js %}
+

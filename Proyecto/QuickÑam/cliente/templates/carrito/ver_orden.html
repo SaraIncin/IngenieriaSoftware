@@ -1,0 +1,38 @@
+{% extends 'base_cliente.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_content %}
+{% if user.is_authenticated %}
+    <div class="page-header">
+        <h1>Tu orden</h1>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Fecha<th>
+            <th>Total<th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for orden in ordenes %}
+                <tr>
+                    <td>{{user.first_name}}</td>
+                    <td> Orden recibida</td>
+                    <td>{{ orden.fecha}}</td>
+                    <td>{{ orden.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+     </div>
+     
+     	
+<div style="text-align: right; width: 530px; padding: 20px">
+	<a  class="btn btn-info"  href="{% url 'cliente:menucliente' %}" style = "width: 180px"> Terminar</a> 
+</div>
+
+{% endif %}
+
+{% endblock body_content %}

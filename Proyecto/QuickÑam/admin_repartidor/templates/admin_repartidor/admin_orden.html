@@ -1,0 +1,135 @@
+{% extends 'admin_repartidor/base.html' %}
+{%load static%}
+{% block body_content %}
+{%if user.is_authenticated%}
+<br>
+{%if estado == 0%}
+<a class="btn btn-info" href="{% url 'admin_repartidor:ver_estado' estado=0%}">Ordenes</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=1%}" >Listas para entregar</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=2%}" >En proceso de entrega</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=3%}" >Entregadas</a>
+{%endif%}
+
+{%if estado == 1%}
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=0%}" >Ordenes</a>
+<a class="btn btn-info" href="{% url 'admin_repartidor:ver_estado' estado=1%}">Listas para entregar</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=2%}" >En proceso de entrega</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=3%}" >Entregadas</a>
+{%endif%}
+
+{%if estado == 2%}
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=0%}" >Ordenes</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=1%}" >Listas para entregar</a>
+<a class="btn btn-info" href="{% url 'admin_repartidor:ver_estado' estado=2%}" >En proceso de entrega</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=3%}">Entregadas</a>
+{%endif%}
+
+
+{%if estado == 3%}
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=0%}">Ordenes</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=1%}">Listas para entregar</a>
+<a class="btn btn-light" href="{% url 'admin_repartidor:ver_estado' estado=2%}">En proceso de entrega</a>
+<a class="btn btn-info" href="{% url 'admin_repartidor:ver_estado' estado=3%}">Entregadas</a>
+{%endif%}
+
+{%if pedidos %}
+
+  	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td> ID Orden</td>
+				<td>Detalles de la orden</td>
+				<td>Estado</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for pedido in pedidos%}
+					<tr>
+			           {% if estado == 0%}
+							<td>{{pedido.order_id}}</td>
+							<td>
+								{%for producto in alimentos%}
+									{%if producto.carrito == pedido.carrito%}
+									<ul>
+										<li>{{producto.producto.nombre}} : {{ producto.cantidad}} </li>
+										</ul>
+									{%endif%}
+								{%endfor%}
+								<a href="{% url 'admin_repartidor:ver_orden' pedido.id%}">Ver mas ...</a>
+							</td>
+							<td>							
+								<button class="btn btn-success"  onclick="modificar_estado('{{pedido.id}}')">Lista para entregar</button>
+							</td>	
+						{% endif %}
+
+						 {% if estado == 1%}
+							<td>{{pedido.order_id}}</td>
+							<td>
+								{%for producto in alimentos%}
+									{%if producto.carrito == pedido.carrito%}
+									<ul>
+										<li>{{producto.producto.nombre}} : {{ producto.cantidad}} </li>
+										</ul>
+									{%endif%}
+								{%endfor%}
+								<a href="{% url 'admin_repartidor:ver_orden' pedido.id%}">Ver mas ...</a>
+							</td>
+							<td>							
+								<p>Lista para entregar</p>
+							</td>	
+						{% endif %}
+
+						{% if estado == 2%}
+							<td>{{pedido.order_id}}</td>
+							<td>
+								{%for producto in alimentos%}
+									{%if producto.carrito == pedido.carrito%}
+									<ul>
+										<li>{{producto.producto.nombre}} : {{ producto.cantidad}} </li>
+										</ul>
+									{%endif%}
+								{%endfor%}
+								<a href="{% url 'admin_repartidor:ver_orden' pedido.id%}">Ver mas ...</a>
+							</td>
+							<td>							
+								<p>En proceso de entrega</p>
+							</td>	
+						{% endif %}
+
+						{% if estado == 3%}
+							<td>{{pedido.order_id}}</td>
+							<td>
+								{%for producto in alimentos%}
+									{%if producto.carrito == pedido.carrito%}
+									<ul>
+										<li>{{producto.producto.nombre}} : {{ producto.cantidad}} </li>
+										</ul>
+									{%endif%}
+								{%endfor%}
+								<a href="{% url 'admin_repartidor:ver_orden' pedido.id%}">Ver mas ...</a>
+							</td>
+							<td>							
+								<p>Entregada</p>
+							</td>	
+						{% endif %}
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+ 
+{% else %}
+				<h2>Lista de ordenes vacía.</h2>
+			{% endif %}
+	{% endif %}
+
+	
+{% endblock body_content %}
+
+
+

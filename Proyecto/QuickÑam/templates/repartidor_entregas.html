@@ -1,0 +1,76 @@
+{% extends 'base_repartidor.html' %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    {% block head %}
+    {% endblock head %}
+    {% block css %}
+    {% endblock css %}
+
+{% block body_content %}
+    {%if user.is_authenticated%}
+<h1> </h1>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li>
+    <a class="nav-link" href="{% url 'usuarios:inicio_repartidor'%}" >   Tus ordenes listas para entregar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tus ordenes en proceso de entrega</a>
+  </li>
+  <li>
+    <a class="nav-link" href="{% url 'usuarios:entregada'%}" >   Tus ordenes entregadas</a>
+  </li>
+</ul>
+{% if pedidos%}
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover">
+		<thead>
+			<tr> 
+				<td></td>
+				<td>Dirección de entrega</td>
+				<td>Cambiar estado</td>
+				<td>Detalles de la orden</td>
+			</tr>
+		</thead>
+		<tbody>
+
+			
+				{%for pedido in pedidos%}
+					<tr>
+							<td></td>
+							<td>
+									{{pedido.user.user.last_name}} {{pedido.user.user.first_name}} <br>
+									{{pedido.user.user.email}} <br>
+									{{pedido.ubicacion.calle}}, {{pedido.ubicacion.numero}}<br>
+									{{pedido.ubicacion.delegacion}}, {{pedido.ubicacion.cp}}.<br>
+									{{pedido.user.telefono}}
+						</td>
+							<td>
+								<button class="btn btn-success"  onclick="modificar_estado('{{pedido.id}}')">Entregado</button>
+							</td>
+							<td>
+							<a class="btn btn-primary" href="{%url 'usuarios:ver_pedido' pedido.id%}">Detalles</a>
+						</td>
+						
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+
+	{%else%}
+	<h2>No hay pedidos para entregar</h2>
+
+						{% endif %}
+  </div>
+</div>
+	{% endif %}
+    
+{% endblock body_content%}

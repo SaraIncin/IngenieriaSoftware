@@ -1,0 +1,17 @@
+{% extends 'base_cliente.html' %}
+
+{% load crispy_forms_tags %}
+{% block body_content %}
+{%if user.is_authenticated%}
+	<h1>Registrar dirección</h1>
+	<form action='.' method="POST">
+		{% csrf_token %}
+        <div class="container">
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href= "{% url 'usuarios:inicio_cliente' %}"> Cancelar </a>
+        </div>
+    	
+	</form>
+{%endif%}
+{% endblock body_content %}

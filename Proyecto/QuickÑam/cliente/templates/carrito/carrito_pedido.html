@@ -1,0 +1,67 @@
+{% extends 'base_cliente.html' %}
+{% load bootstrap4 %}
+
+{% block body_content %}
+{%if user.is_authenticated%}
+<h1>Detalles de pedido </h1>
+<h3> Nombre: {{user.first_name}}</h3>
+<h4>Delegación: {{orden.ubicacion.delegacion}}</h4>
+<h4>Calle: {{orden.ubicacion.calle}}</h4>
+<h4>Número: {{orden.ubicacion.numero}}</h4>
+<h4>CP: {{orden.ubicacion.cp}}</h4>
+<table  class="table table-sm table-hover"  style="text-align: center;">
+    <thead class="thead-warning">
+        <tr> 
+            <th scope="col" ></th>
+            <th scope="col" >Alimento</th>
+            <th scope="col" >Descripción</th>
+			<th scope="col">Cantidad</th>
+			<th scope="col">Precio</th>
+		</tr>
+	</thead>
+	<tbody>
+		{%for articulo in articulos%}
+		    <tr>
+				{%if carrito.completado == True%}
+				
+				    <td>
+				    <div class="card text-center">
+      				<div class="card-block">
+				    <img class="card-img-top" src="/media/{{articulo.producto.foto}}">
+				    </div>
+				    </div>
+				   
+					<td>{{articulo.producto.nombre}}</td>
+					<td>{{articulo.producto.descripcion}}</td>
+					<td>{{articulo.cantidad}}</td>
+					<td>{{articulo.producto.precio}}</td>
+				{%endif%}
+			</tr>
+
+		{%endfor%}
+	</tbody>
+</table>
+
+<table class="table table-sm table-hover" style="text-align: center;">
+    <thead class="thead-warning">
+        <tr> 				
+			<th scope="col" >Total</td>
+	    </tr>
+	</thead>
+	<tbody>
+        <tr>
+            <td> ${{orden.total}}</td>		
+		</tr>	
+	</tbody>
+</table>
+	
+<div style="text-align: right; width: 530px; padding: 20px">
+	<a  class="btn btn-info"  href="{% url 'cliente:ver_pedidos' %}" style = "width: 180px"> Volver</a> 
+</div>
+{%endif%}
+
+	
+{% endblock body_content %}
+
+
+

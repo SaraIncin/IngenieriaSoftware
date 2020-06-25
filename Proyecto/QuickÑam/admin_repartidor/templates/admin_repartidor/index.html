@@ -1,0 +1,20 @@
+{% extends 'admin_repartidor/base.html' %}
+
+{% block body_content %}
+{% if user.is_authenticated %}
+	<h1> Página Principal Administrador </h1>
+	    <div class="container">
+
+	        <a class="btn btn-outline-success btn-lg btn-block" href="{%url 'admin_repartidor:ver_estado' estado=0 %}"> Pedidos</a>
+	        
+			<a class="btn btn-outline-warning btn-lg btn-block" href="{% url 'admin_categoria:ver_categoria'%}"> Categoria</a>
+	    
+			<a class="btn btn-outline-primary btn-lg btn-block" href="{% url 'admin_alimentos:ver_alimento'%}"> Alimentos</a>
+		
+			<a class="btn btn-outline-secondary btn-lg btn-block" href="{% url 'admin_repartidor:ver_repartidor'%}"> Repartidor</a>
+
+		</div>
+    {% endif %}
+
+    
+{% endblock body_content %}

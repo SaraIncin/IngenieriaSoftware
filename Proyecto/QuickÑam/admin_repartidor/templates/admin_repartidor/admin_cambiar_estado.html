@@ -1,0 +1,172 @@
+{% extends 'admin_repartidor/base.html' %}
+{%load static%}
+{% block body_content %}
+{%if user.is_authenticated%}
+<h1> </h1>
+{%if pedidos %}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ordenes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Listas para entregar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">En proceso de entrega</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Entregadas</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td>Orden</td>
+				<td>Detalles de la orden</td>
+				<td>Cambiar estado</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for pedido in pedidos%}
+					<tr>
+			           {% if pedido.estado == 0%}
+							<td>{{pedido.order_id}}</td>
+							<td>
+								{%for producto in alimentos%}
+									{%if producto.carrito == pedido.carrito%}
+									<table class="table table-hover">
+									<tr>
+										<td>{{producto.producto.nombre}}</td> 
+										<td> {{ producto.cantidad}} </td>
+										</tr>
+										</table>
+									{%endif%}
+								{%endfor%}
+							</td>
+							<td>							
+								<button class="btn btn-success"  onclick="modificar_estado('{{pedido.id}}')">Lista para entregar</button>
+							</td>	
+						{% endif %}
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+  </div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  	<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td>Orden</td>
+				<td>fecha</td>
+				<td>Estado</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for pedido in pedidos%}
+					<tr>
+			           {% if pedido.estado == 1%}
+							<td>{{pedido.id}}</td>
+							<td>{{pedido.fecha}}</td>
+							<td>
+								<p> Lista para entregar</p>
+							</td>	
+						{% endif %}
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+  </div>
+  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+  	<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td>Orden</td>
+				<td>fecha</td>
+				<td>Estado</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for pedido in pedidos%}
+					<tr>
+			           {% if pedido.estado == 2%}
+							<td>{{pedido.id}}</td>
+							<td>{{pedido.fecha}}</td>
+							<td>
+								<p> En proceso de entrega</p>
+							</td>	
+						{% endif %}
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+  </div>
+  <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  	<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td>Orden</td>
+				<td>fecha</td>
+				<td>Estado</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for pedido in pedidos%}
+					<tr>
+			           {% if pedido.estado == 3%}
+							<td>{{pedido.id}}</td>
+							<td>{{pedido.fecha}}</td>
+							<td>
+								<p> Entregada</p>
+							</td>	
+						{% endif %}
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		
+	</table>
+  </div>
+</div>
+{% else %}
+				<h2>Lista de ordenes vacía.</h2>
+			{% endif %}
+	{% endif %}
+
+	
+{% endblock body_content %}
+
+
+

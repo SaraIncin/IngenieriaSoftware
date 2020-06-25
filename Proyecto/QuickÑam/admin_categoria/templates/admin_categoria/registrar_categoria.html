@@ -1,0 +1,16 @@
+{% extends 'admin_repartidor/base.html' %}
+{% load crispy_forms_tags %}
+{% block body_content %}
+{%if user.is_authenticated%}
+	<h1 align="center">Registrar categoría</h1>
+	<form action='.' method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+        <div class="container">
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href= "{% url 'admin_categoria:ver_categoria' %}"> Cancelar </a>
+        </div>
+    	
+	</form>
+{%endif%}
+{% endblock body_content %}

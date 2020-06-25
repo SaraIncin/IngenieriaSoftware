@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    {% block head %}
+    {% endblock head %}
+    {% block css %}
+    {% endblock css %}
+{% block body_content %} 
+    <div class="card mb-3">
+        <img src="{% static 'img/f.jpg' %}" class="img-fluid" alt="Responsive image">
+        <div class="card-body">
+            <div class="caption">
+                <h3></h3>
+
+                <div class="container">
+
+                    <a class="btn btn-outline-dark btn-lg btn-block" href="{% url 'usuarios:login_cliente'%}"> Soy Cliente</a>
+            
+                    <a class="btn btn-outline-dark btn-lg btn-block" href="{% url 'usuarios:login_repartidor'%}">Soy Repartidor</a>
+            
+                    <a class="btn btn-outline-dark btn-lg btn-block" href="{% url 'usuarios:login_administrador'%}">Soy Administrador</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+   
+{% endblock body_content %}   

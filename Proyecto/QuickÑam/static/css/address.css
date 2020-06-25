@@ -1,0 +1,5 @@
+table.table tr.selected{
+            background-color: #e92929 !important;
+            vertical-align: middle !important;
+            height: 4em;  
+}  

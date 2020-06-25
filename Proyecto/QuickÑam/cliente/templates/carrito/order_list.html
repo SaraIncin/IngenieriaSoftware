@@ -1,0 +1,40 @@
+{% extends 'base_cliente.html' %}
+
+{% block body_content %}
+{%if user.is_authenticated%}
+<h1>Pedidos </h1>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr> 
+				<td>Orden</td>
+				<td>fecha</td>
+			</tr>
+		</thead>
+		<tbody>
+			{%if pedidos %}
+				{%for pedido in pedidos%}
+				 {% if pedido.status == 3 %}
+					<tr>
+			           
+							<td>{{pedido.id}}</td>
+							<td>{{pedido.created_at}}</td>
+							<td>Completado</td>
+							<td>
+								<a class="btn btn-primary" href="#"> Ver Detalles</a>
+							</td>	
+						
+					</tr>
+				{% endif %}
+				{%endfor%}
+
+			{% else %}
+				<h2>No has realizado ningun pedido todavía.</h2>
+			{% endif %}
+		</tbody>
+		
+	</table>
+	{% endif %}
+
+	
+{% endblock body_content %}
+

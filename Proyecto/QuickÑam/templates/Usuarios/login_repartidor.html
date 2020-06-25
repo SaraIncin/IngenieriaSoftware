@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% bootstrap_css %}
+{% block head %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+
+{% endblock head %}
+
+{% block body_content %}
+
+<div class="cod-container">
+        <div class="text-center">
+            <img src="{% static 'img/quicknam.png' %}">
+            <!--<h1>Codigo<span>Masters</span></h1>-->
+        </div>
+        
+        <div class="form-content">
+            <form class="form-signin" method="POST">
+                {% csrf_token %}
+                <div class="container">
+                    {{form |crispy}}
+                    <div class="text-center">
+                        <input type="submit" class="form-input" value="Iniciar Sesión">
+                    </div>
+                </div>               
+            </form>
+        </div>
+</div>
+
+{% block js %}
+{% endblock js %}
+
+
+{% endblock body_content %}

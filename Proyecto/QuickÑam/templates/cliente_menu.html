@@ -1,0 +1,87 @@
+{% extends 'base_cliente.html' %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    {% block head %}
+    {% endblock head %}
+    {% block css %}
+    {% endblock css %}
+
+{% block body_content %}
+<br>
+<div class="container">
+{%if categorias %}
+{%for categoria in categorias%}
+<!-- Accordion card -->
+<div class="accordion" id="accordionExample">
+  <div class="card">
+  	<!-- Card header -->
+    <div class="card-header" id="{{categoria.id}}">
+      <h2 class="mb-0">
+        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#{{categoria.nombre}}">
+        	<i class="fas fa-angle-down"></i>
+          {{categoria.nombre}} 
+        </button>
+      </h2>
+
+    </div>
+    <div id="{{categoria.nombre}}" class="collapse" aria-labelledby="{{categoria.id}}" data-parent="#accordionExample">
+    	<!-- Card body -->
+    	<div class="card-body">
+    		<div class="container">
+  				<div class="row">
+    				{%for alimento in alimentos%}
+    					{%if alimento.categoria.nombre == categoria.nombre%}
+    						<!-- Card -->
+    						<div class="col-md-3 col-sm-6">
+
+      						<!--Card image-->
+      							<div class="card text-center">
+      								<div class="card-block">
+        								<img class="card-img-top" src="/media/{{alimento.foto}}" alt="Card image cap">
+
+        								<!--Title-->
+        								<h4 class="card-title">{{alimento.nombre}}  ${{alimento.precio}}</h4>
+        								<!--Text-->
+        								<p class="card-text">{{alimento.descripcion}}.</p>
+        								<p class="card-text"><small class="text-muted">{{alimento.categoria.nombre}}</small></p>
+                        
+                          <button style="margin-bottom: 10px" class="btn btn-warning" name="agregar" id="add_button_{{alimento.id}}" onclick="agregar_alimento('{{alimento.id}}')"> <i class="fa fa-plus"></i> Agregar a carrito 
+                          </button>
+                      
+
+      								</div>
+
+    							</div>
+    							<br>
+    
+  							</div>
+     					{%endif%}
+    				{%endfor%}
+    			</div>
+			</div>
+		</div>
+	</div>
+  </div>
+ </div> 
+{%endfor%}
+<!-- Accordion wrapper -->	
+{% else %}
+	<h2>No existe un menu</h2>
+{% endif %}
+
+
+</div>
+    
+{% endblock body_content%}
+
+{% block js%}
+
+<script>
+        $.ajaxSetup({
+            data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+    </script>
+<script src="{% static 'js/carrito.js' %}"></script>
+
+{%endblock js%}

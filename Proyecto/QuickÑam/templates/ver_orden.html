@@ -1,0 +1,46 @@
+{% extends 'base_repartidor.html' %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    {% block head %}
+    {% endblock head %}
+    {% block css %}
+    {% endblock css %}
+
+{% block body_content %}
+    {%if user.is_authenticated%}
+    	<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	<table class="table table-hover">
+		<thead>
+			<tr> 
+				<td># Orden</td>
+				<td>Detalles del producto</td>
+				<td>Precio</td>
+				<td>Cantidad</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+				{%for articulo in productos%}
+					<tr>
+							<td>{{orden.id}}</td>
+							<td>{{articulo.producto.nombre}}</td>
+							<td>{{articulo.producto.precio}}</td>
+							<td>{{articulo.cantidad}}</td>
+							
+						
+						
+					</tr>
+				{% endfor %}
+
+
+			
+		</tbody>
+		<td style="text-align: right;" colspan="3">Total: {{orden.total }}</td>
+	</table>
+
+	<button class="btn btn-success" onclick="goBack()"><i class="fas fa-arrow-left"></i> Regresar</button>
+    {%endif%}
+
+{% endblock body_content%}    

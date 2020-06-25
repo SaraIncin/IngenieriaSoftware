@@ -1,0 +1,51 @@
+{% extends 'base_cliente.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/address.css' %}"> 
+{% endblock head %}
+{% block body_content %}
+{%if user.is_authenticated%}
+<h1>Seleccionar dirección </h1>
+	<table class="table table-hover table-bordered" style="text-align: center;">
+		<thead class="thead-warning">
+			<tr> 
+				<th>Delegación</td>
+				<th>Calle</td>
+				<th>Número</td>
+				<th>CP</td>
+				<th></td>
+			</tr>
+		</thead>
+		<tbody>
+			{%if direcciones %}
+				{%for direccion in direcciones%}
+					<tr>
+							<td class = "d">{{direccion.delegacion}}</td>
+							<td class = "c">{{direccion.calle}}</td>
+							<td class = "n">{{direccion.numero}}</td>
+							<td class = "p">{{direccion.cp}}</td>
+							<td>
+							
+                        <a class="btn btn-warning" href="{% url 'cliente:completar_orden'  carrito.id direccion.id  %}"> Seleccionar</a>
+							</td>	
+						
+					</tr>
+				{%endfor%}
+				
+			{% else %}
+				<h3>No tienes ninguna dirección</h3>
+			{% endif %}
+		</tbody>
+		
+	</table>
+	<div style="text-align: right; width: 980px">
+	<a  class="btn btn-info"  href="{% url 'cliente:agregar_direccion' carrito.id %}" style = "width: 180px">  Agregar dirección </a> 
+	</div>
+    
+	{% endif %}
+	
+
+	
+{% endblock body_content %}
+
